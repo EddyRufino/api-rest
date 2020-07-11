@@ -2,44 +2,22 @@
 
 namespace App\Http\Controllers\Buyer;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Buyer;
 
-class BuyerController extends Controller
+class BuyerController extends ApiController
 {
 
     public function index()
     {
-        //
-    }
-
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
+        $buyers = Buyer::has('transactions')->get();
+        return $this->showAll($buyers);
     }
 
     public function show($id)
     {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+        $buyer = Buyer::has('transactions')->findOrFail($id);
+        return $this->showOne($buyer);
     }
 }

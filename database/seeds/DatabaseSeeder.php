@@ -23,11 +23,6 @@ class DatabaseSeeder extends Seeder
         factory(Category::class, 15)->create();
         factory(User::class, 25)->create();
 
-        // factory(Product::class, 310)->create()
-        // 	->each(function(Product $product) {
-        // 		$product->categories()->attach(factory(Category::class, 1)->create());
-        // 	});
-
         factory(Product::class, 110)->create()
         	->each(function(Product $product) {
         		$categorias = Category::all()->random(mt_rand(1, 3))->pluck('id');

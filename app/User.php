@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -16,6 +17,7 @@ class User extends Authenticatable
     const USUARIO_ADMINISTRADOR = 'true';
     const USUARIO_REGULAR = 'false';
 
+    // Porque Buyer and Seller heredan de User
     protected $table = 'users';
 
     /**
@@ -32,6 +34,20 @@ class User extends Authenticatable
         'admin'
     ];
 
+    public function setNameAttribute($name)
+    {
+        $this->attributes['name'] = strtolower($name);
+    }
+
+    public function getNameAttribute($name)
+    {
+        return ucwords($name);
+    }
+
+    public function setEmailAttribute($email)
+    {
+        $this->attributes['email'] = strtolower($email);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -62,8 +78,8 @@ class User extends Authenticatable
         return $this->admin == User::USUARIO_ADMINISTRADOR;
     }
 
-    public function generarVerificacionToken()
+    public static function generarVerificacionToken()
     {
-        return str_random(40);
+        return Str::random(40);
     }
 }
