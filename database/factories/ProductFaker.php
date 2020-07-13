@@ -2,7 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Seller;
+use App\User;
 use App\Product;
 use Faker\Generator as Faker;
 
@@ -13,6 +13,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'quantity' => $faker->numberBetween(1, 10),
         'status' => $faker->randomElement([Product::PRODUCTO_DISPONIBLE, Product::PRODUCTO_NO_DISPONIBLE]),
         'image' => \Faker\Provider\Image::image(storage_path() . '/app/public/products', 600, 350, 'technics', false),
-        'seller_id' => Seller::all()->random()->id
+        'seller_id' => User::all()->random()->id
     ];
 });
