@@ -4,42 +4,19 @@ namespace App\Http\Controllers\Transaction;
 
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Transaction;
 
 class TransactionController extends ApiController
 {
 
     public function index()
     {
-        //
+        $transactions = Transaction::all();
+        return $this->showAll($transactions);
     }
 
-    public function create()
+    public function show(Transaction $transaction)
     {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
+        return $this->showOne($transaction);
     }
 }
