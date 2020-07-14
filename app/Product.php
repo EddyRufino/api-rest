@@ -21,6 +21,10 @@ class Product extends Model
     	'seller_id'
     ];
 
+    protected $hidden = [
+        'pivot'
+    ];
+
     protected $date = ['deleted_at'];
 
     public function estaDisponible()
@@ -35,7 +39,7 @@ class Product extends Model
 
     public function transactions()
     {
-        return $this->hasToMany(Transaction::class);
+        return $this->hasMany(Transaction::class);
     }
 
     public function categories()
