@@ -17,8 +17,19 @@ class DatabaseSeeder extends Seeder
     {
     	DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
+        User::truncate();
+        Category::truncate();
+        Product::truncate();
+        Transaction::truncate();
+        DB::table('category_product')->truncate();
+
         Storage::deleteDirectory('products');
         Storage::makeDirectory('products');
+
+        User::flushEventListeners();
+        Category::flushEventListeners();
+        Product::flushEventListeners();
+        Transaction::flushEventListeners();
 
         factory(Category::class, 15)->create();
         factory(User::class, 25)->create();

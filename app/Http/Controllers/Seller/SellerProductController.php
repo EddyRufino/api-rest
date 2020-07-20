@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Seller;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use App\Seller;
+use App\User;
 use App\Seller;
 use App\Product;
 
