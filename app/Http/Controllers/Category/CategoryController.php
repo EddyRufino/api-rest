@@ -3,11 +3,18 @@
 namespace App\Http\Controllers\Category;
 
 use App\Http\Controllers\ApiController;
+use App\Transformers\CategoryTransformer;
 use Illuminate\Http\Request;
 use App\Category;
 
 class CategoryController extends ApiController
 {
+    public function __construct()
+    {
+        // $this->middleware('client.credentials')->only(['index', 'show']);
+        // $this->middleware('auth:api')->except(['index', 'show']);        
+        $this->middleware('transform.input:' . CategoryTransformer::class)->only(['store', 'update']);
+    }
 
     public function index()
     {
