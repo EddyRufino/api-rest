@@ -115,7 +115,11 @@ class Handler extends ExceptionHandler
 
     protected function unauthenticated($request, AuthenticationException $exception)
     {
-        return $this->errorResponse('Unauthenticated.', 401);        
+        if ($this->isFrontend($request)) {
+            return redirect()->guest('login');
+        }
+
+        return $this->errorResponse('Unauthenticated.', 401);  
     }
 
     /**
@@ -130,7 +134,20 @@ class Handler extends ExceptionHandler
     {
         $errors = $e->validator->errors()->getMessages();
 
+
+        if ($this->isFrontend($request)) {
+            return $request->ajax() ? response()->json($error, 422) : redirect()
+                ->back()
+                ->withInput($request->input())
+                ->withErrors($errors);
+        }
+
         return $this->errorResponse($errors, 422);
 
+    }
+
+    private function isFrontend($request)
+    {
+        return $request->acceptsHtml() && collect($request->route()->middleware())->contains('web');
     }
 }
